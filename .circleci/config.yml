@@ -1,0 +1,35 @@
+# Scala CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/sample-config/ for more details
+#
+version: 2.1
+
+executors:
+  default:
+    docker:
+    - image: cimg/base:2022.02
+      environment:
+        USER: "circleci"
+        TERM: dumb
+        CI: "true"
+
+jobs:
+  build:
+    executor: default
+    steps:
+    - checkout
+    - run:
+        name: build
+        command: |
+          set -euo pipefail
+
+          echo "It worked!"
+
+workflows:
+  version: "2"
+  pr:
+    jobs:
+    - build:
+        filters:
+          branches:
+            ignore: main
