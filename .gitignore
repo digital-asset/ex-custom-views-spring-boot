@@ -1,0 +1,9 @@
+/.daml
+/log
+navigator.log
+/.dlint.yaml
+.gitattributes
+.idea
+target
+.mvn/wrapper/maven-wrapper.jar
+parties.json
