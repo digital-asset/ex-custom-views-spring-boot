@@ -73,10 +73,6 @@ Export the party Id, in this case `Alice::1220c7b4b153d8dec59ceb424bb700f2c8032e
 
     export PARTY_ID="Alice::1220c7b4b153d8dec59ceb424bb700f2c8032ec48a13195f580c8fb099ff0ea196fc"
 
-Run the migration to create the tables with the following command:
-
-    mvn flyway:migrate -Dflyway.configFiles=src/main/resources/flyway.conf
-
 Start the REST API with the following command:
 
     mvn spring-boot:run
