@@ -60,7 +60,7 @@ public class ProjectionRunner {
     Projection<Event> events =
         Projection.create(new ProjectionId("active-iou-contracts-for-alice"), ProjectionFilter.parties(Set.of(aliceParty)));
 
-    var jsonCodec = JsonCodec.apply();
+    var jsonCodec = JsonCodec.encodeAsNumbers();
 
     Project<Event, JdbcAction> f = envelope -> {
       Event event = envelope.getEvent();
