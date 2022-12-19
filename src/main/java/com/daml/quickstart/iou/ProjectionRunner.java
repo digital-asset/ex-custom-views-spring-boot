@@ -72,7 +72,7 @@ public class ProjectionRunner {
                     "insert into "
                         + projectionTable.getName()
                         + "(contract_id, event_id, amount, currency, json_data) "
-                        + "values (?, ?, ?, ?, ?::json)")
+                        + "values (?, ?, ?, ?, ?::jsonb)")
                 .bind(1, event.getContractId(), Bind.String())
                 .bind(2, event.getEventId(), Bind.String())
                 .bind(3, iou.data.amount, Bind.BigDecimal())

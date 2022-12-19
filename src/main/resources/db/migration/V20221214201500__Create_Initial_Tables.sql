@@ -5,5 +5,7 @@ create table events
     event_id    varchar not null,
     currency    varchar not null,
     amount      numeric not null,
-    json_data   json
+    json_data   jsonb
 );
+
+CREATE INDEX json_data_observers_gin ON events USING gin((json_data->'observers'));
