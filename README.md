@@ -83,4 +83,5 @@ Start the projection runner with the following command:
 
 You should be able to see events projected to the database by checking the database directly or using one of the APIs below.
 - `GET /events`
+- `GET /events/observer/<party>`
 - `GET /events/count`

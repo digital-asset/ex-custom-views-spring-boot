@@ -22,6 +22,13 @@ public class EventsRepository {
     return jdbcTemplate.query("SELECT * from events", new EventRowMapper());
   }
 
+  public List<ProjectedEvent> byObserver(String observer) {
+    return jdbcTemplate.query(
+            "SELECT * FROM events where json_data->'observers' ?? ?",
+            ps -> ps.setString(1, observer),
+            new EventRowMapper());
+  }
+
   public Integer count() {
     return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM events", Integer.class);
   }
