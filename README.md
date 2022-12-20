@@ -37,7 +37,7 @@ Note: Before starting, please ensure you have the Daml SDK installed. You can fi
 
 # How to run
 
-In the quickstart directory, compile Daml model with: 
+In the project directory, compile Daml model with: 
 
     daml build
 
