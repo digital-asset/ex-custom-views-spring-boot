@@ -4,6 +4,7 @@ import akka.actor.ActorSystem;
 import akka.grpc.GrpcClientSettings;
 import com.daml.ledger.javaapi.data.CreatedEvent;
 import com.daml.ledger.javaapi.data.Event;
+import com.daml.lf.codegen.json.JsonCodec;
 import com.daml.projection.Bind;
 import com.daml.projection.ExecuteUpdate;
 import com.daml.projection.JdbcAction;
@@ -59,6 +60,8 @@ public class ProjectionRunner {
     Projection<Event> events =
         Projection.create(new ProjectionId("active-iou-contracts-for-alice"), ProjectionFilter.parties(Set.of(aliceParty)));
 
+    var jsonCodec = JsonCodec.encodeAsNumbers();
+
     Project<Event, JdbcAction> f = envelope -> {
       Event event = envelope.getEvent();
       logger.info("projecting event " + event.getEventId());
@@ -68,12 +71,13 @@ public class ProjectionRunner {
             ExecuteUpdate.create(
                     "insert into "
                         + projectionTable.getName()
-                        + "(contract_id, event_id, amount, currency) "
-                        + "values (?, ?, ?, ?)")
+                        + "(contract_id, event_id, amount, currency, json_data) "
+                        + "values (?, ?, ?, ?, ?::jsonb)")
                 .bind(1, event.getContractId(), Bind.String())
                 .bind(2, event.getEventId(), Bind.String())
                 .bind(3, iou.data.amount, Bind.BigDecimal())
-                .bind(4, iou.data.currency, Bind.String());
+                .bind(4, iou.data.currency, Bind.String())
+                .bind(5, jsonCodec.toJsValue(iou.data.toValue()).compactPrint(), Bind.String());
         return List.of(action);
       }
       else {
