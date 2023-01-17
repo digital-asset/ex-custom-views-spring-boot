@@ -41,7 +41,7 @@
         <dependency>
             <groupId>com.daml</groupId>
             <artifactId>codegen-json-java_2.13</artifactId>
-            <version>${damlVersion}</version>
+            <version>2.6.0-snapshot.20221226.11190.0.71548477</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
